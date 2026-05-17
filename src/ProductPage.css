@@ -1,0 +1,803 @@
+/* =========================================
+   1. Base & Layout Structure
+   ========================================= */
+.product-page-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  color: var(--text-color, #333);
+}
+
+.product-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+/* =========================================
+   2. Breadcrumbs & Toast
+   ========================================= */
+.breadcrumbs {
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.breadcrumbs a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.breadcrumbs a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.breadcrumbs span {
+  margin: 0 8px;
+  color: #999;
+}
+
+.breadcrumbs .current {
+  color: var(--text-color, #333);
+  font-weight: 600;
+}
+
+.toast-notification {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #2c3e50;
+  color: #fff;
+  padding: 15px 25px;
+  border-radius: 8px;
+  font-weight: 500;
+  z-index: 9999;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  animation: slideInUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* =========================================
+   3. Product Gallery & Zoom
+   ========================================= */
+.product-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.main-image-wrapper {
+  position: relative;
+  background: #f8f9fa;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 1/1;
+  cursor: crosshair;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.2s;
+}
+
+/* Zoom Lens Effect */
+.zoom-lens {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-size: 200%; /* Adjust for zoom intensity */
+  z-index: 10;
+  border-radius: 16px;
+}
+
+.main-image-wrapper:hover .main-image {
+  opacity: 0; /* Hide original when zoomed in */
+}
+
+.badge-discount {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: #e94560;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 1rem;
+  z-index: 15;
+  box-shadow: 0 4px 10px rgba(233, 69, 96, 0.3);
+}
+
+.thumbnail-track {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+  scrollbar-width: thin;
+}
+
+.thumb-btn {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  background: transparent;
+  transition: all 0.2s;
+}
+
+.thumb-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumb-btn.active {
+  border-color: var(--primary-color, #e94560);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* =========================================
+   4. Product Details
+   ========================================= */
+.product-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.product-title {
+  font-size: 2.2rem;
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.price-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.current-price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color, #e94560);
+}
+
+.original-price {
+  font-size: 1.2rem;
+  color: #999;
+  text-decoration: line-through;
+}
+
+/* Attributes (Size & Quantity) */
+.attribute-section h4 {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.size-grid {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.size-btn {
+  min-width: 60px;
+  padding: 0.6rem 1rem;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.size-btn.selected {
+  background: var(--primary-color, #e94560);
+  color: white;
+  border-color: var(--primary-color, #e94560);
+}
+
+.size-btn.out-of-stock {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: #f9f9f9;
+  color: #aaa;
+  text-decoration: line-through;
+}
+
+.qty-controller {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 45px;
+}
+
+.qty-controller button {
+  background: #f8f9fa;
+  border: none;
+  width: 45px;
+  height: 100%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.qty-controller button:hover:not(:disabled) {
+  background: #e9ecef;
+}
+
+.qty-controller input {
+  width: 50px;
+  height: 100%;
+  border: none;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Stock Status */
+.stock-status {
+  font-size: 0.95rem;
+}
+.text-warning {
+  color: #f39c12;
+  font-weight: bold;
+}
+.text-success {
+  color: #2ecc71;
+  font-weight: bold;
+}
+.text-danger {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+/* =========================================
+   5. Action Buttons
+   ========================================= */
+.action-group {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn-add-cart,
+.btn-buy-now {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-add-cart {
+  background: #2c3e50;
+  color: white;
+}
+
+.btn-add-cart:hover:not(:disabled) {
+  background: #1a252f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(44, 62, 80, 0.3);
+}
+
+.btn-buy-now {
+  background: var(--primary-color, #e94560);
+  color: white;
+}
+
+.btn-buy-now:hover:not(:disabled) {
+  background: #d43f5e;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(233, 69, 96, 0.3);
+}
+
+.btn-add-cart:disabled,
+.btn-buy-now:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-wishlist {
+  background: transparent;
+  border: 2px solid #ddd;
+  width: 55px;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-wishlist.active {
+  border-color: var(--primary-color, #e94560);
+  background: rgba(233, 69, 96, 0.1);
+}
+
+/* =========================================
+   6. Advanced Tabs
+   ========================================= */
+.advanced-tabs {
+  margin-top: 2rem;
+  border-top: 1px solid #eee;
+  padding-top: 1rem;
+}
+
+.tab-nav {
+  display: flex;
+  gap: 2rem;
+  border-bottom: 2px solid #f1f1f1;
+}
+
+.tab-nav button {
+  padding: 1rem 0;
+  background: transparent;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #777;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.tab-nav button.active {
+  color: var(--primary-color, #e94560);
+}
+
+.tab-nav button.active::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--primary-color, #e94560);
+  border-radius: 3px;
+}
+
+.tab-panel {
+  padding: 1.5rem 0;
+  color: #555;
+  line-height: 1.7;
+}
+
+.shipping-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.shipping-list li {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* =========================================
+   7. Carousel / Scrolling Section
+   ========================================= */
+.scroll-section,
+.grid-section {
+  margin-top: 4rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.auto-toggle-btn {
+  background: #f1f1f1;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.auto-toggle-btn:hover {
+  background: #e2e2e2;
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 15px 5px;
+  scrollbar-width: none; /* Firefox */
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.carousel-card {
+  min-width: 260px;
+  max-width: 260px;
+  background: var(--card-bg, #fff);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+  border: 1px solid #f1f1f1;
+}
+
+.carousel-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+}
+
+.img-wrap {
+  width: 100%;
+  height: 220px;
+  position: relative;
+  overflow: hidden;
+  background: #f8f9fa;
+}
+
+.img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.4s;
+}
+
+.carousel-card:hover .img-wrap img {
+  transform: scale(1.08);
+}
+
+.discount-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--primary-color, #e94560);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.card-info {
+  padding: 15px;
+}
+
+.card-info h5 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-color, #333);
+}
+
+.card-price {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-color, #e94560);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-price del {
+  font-size: 0.9rem;
+  color: #999;
+  font-weight: 400;
+}
+
+.arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 1.2rem;
+  color: #333;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.arrow-btn:hover {
+  background: var(--primary-color, #e94560);
+  color: white;
+  border-color: var(--primary-color, #e94560);
+}
+
+.arrow-btn.left {
+  left: -15px;
+}
+.arrow-btn.right {
+  right: -15px;
+}
+
+/* =========================================
+   8. Basic Grid Layout (Related Products)
+   ========================================= */
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.grid-card {
+  background: var(--card-bg, #fff);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: transform 0.3s;
+  border: 1px solid #f1f1f1;
+}
+
+.grid-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  background: #f8f9fa;
+}
+
+.grid-card:hover {
+  transform: translateY(-5px);
+}
+
+/* =========================================
+   9. States (Loading & Error)
+   ========================================= */
+.page-loader,
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid var(--primary-color, #e94560);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.btn-primary {
+  background: var(--primary-color, #e94560);
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+/* =========================================
+   10. Responsive Breakpoints
+   ========================================= */
+@media (max-width: 992px) {
+  .product-main-grid {
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .product-main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-title {
+    font-size: 1.8rem;
+  }
+
+  .action-group {
+    flex-wrap: wrap;
+  }
+
+  .btn-wishlist {
+    flex-basis: 100%;
+    padding: 10px;
+  }
+
+  .arrow-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+  .arrow-btn.left {
+    left: 0;
+  }
+  .arrow-btn.right {
+    right: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-card {
+    min-width: 200px;
+    max-width: 200px;
+  }
+
+  .img-wrap {
+    height: 180px;
+  }
+
+  .tab-nav {
+    gap: 1rem;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+
+/* =========================================
+   11. Mobile Button Sizing & New Animation
+   ========================================= */
+
+/* Adjust button sizes for very small devices (<= 480px) */
+@media (max-width: 480px) {
+  .btn-add-cart,
+  .btn-buy-now {
+    padding: 0.8rem 0.6rem;
+    font-size: 1rem;
+  }
+
+  .size-btn {
+    min-width: 50px;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .qty-controller {
+    height: 40px;
+  }
+  .qty-controller button {
+    width: 40px;
+    font-size: 1rem;
+  }
+  .qty-controller input {
+    width: 40px;
+  }
+
+  .btn-wishlist {
+    width: 48px;
+    font-size: 1.1rem;
+  }
+}
+
+/* Extra small screens (<= 360px) */
+@media (max-width: 360px) {
+  .btn-add-cart,
+  .btn-buy-now {
+    padding: 0.7rem 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .size-btn {
+    min-width: 44px;
+    padding: 0.3rem 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .qty-controller {
+    height: 36px;
+  }
+  .qty-controller button {
+    width: 36px;
+  }
+  .qty-controller input {
+    width: 36px;
+  }
+
+  .btn-wishlist {
+    width: 42px;
+    font-size: 1rem;
+  }
+}
+
+/* Gentle pulse animation for primary interactive elements */
+.btn-add-cart:not(:disabled),
+.btn-buy-now:not(:disabled),
+.size-btn:not(.out-of-stock),
+.auto-toggle-btn,
+.btn-primary {
+  animation: gentlePulse 2s infinite ease-in-out;
+}
+
+/* Remove animation for disabled/hovered states to avoid overdoing */
+.btn-add-cart:hover:not(:disabled),
+.btn-buy-now:hover:not(:disabled),
+.size-btn:hover:not(.out-of-stock),
+.auto-toggle-btn:hover,
+.btn-primary:hover {
+  animation: none;
+}
+
+@keyframes gentlePulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

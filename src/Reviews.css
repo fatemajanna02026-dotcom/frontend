@@ -1,0 +1,106 @@
+.reviews-container {
+  padding: 1rem 0;
+}
+.reviews-summary {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.avg-rating {
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: #f0f0f0;
+  padding: 0.25rem 0.75rem;
+  border-radius: 30px;
+}
+.review-form {
+  background: #f9f9f9;
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+.rating-select {
+  margin-bottom: 0.75rem;
+}
+.rating-select select {
+  margin-left: 0.5rem;
+  padding: 0.25rem;
+}
+.review-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: inherit;
+  resize: vertical;
+}
+.submit-review-btn {
+  margin-top: 0.75rem;
+  background: var(--primary-color, #e94560);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.review-card {
+  border-bottom: 1px solid #eee;
+  padding: 1rem 0;
+}
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+.review-stars {
+  color: #f5b342;
+  letter-spacing: 2px;
+}
+.review-comment {
+  margin: 0;
+  color: #333;
+  line-height: 1.4;
+}
+.login-prompt {
+  background: #f0f0f0;
+  padding: 0.75rem;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.review-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 30px;
+  z-index: 2000;
+  font-size: 0.9rem;
+}
+/* ===== Dark Mode ===== */
+.dark-mode .reviews-container { color: var(--text, #f1f5f9); }
+.dark-mode .avg-rating { background: #2a2a3a; color: #f1f5f9; }
+.dark-mode .review-form { background: #1e1e30; border: 1px solid #3a3a5a; }
+.dark-mode .review-form textarea {
+  background: #16213e;
+  color: #f1f5f9;
+  border-color: #3a3a5a;
+}
+.dark-mode .review-form textarea::placeholder { color: #94a3b8; }
+.dark-mode .rating-select select {
+  background: #16213e;
+  color: #f1f5f9;
+  border-color: #3a3a5a;
+}
+.dark-mode .review-card { border-bottom-color: #3a3a5a; }
+.dark-mode .review-comment { color: #e2e8f0; }
+.dark-mode .review-header strong { color: #f1f5f9; }
+.dark-mode .login-prompt { background: #1e1e30; color: #94a3b8; }
+.dark-mode .login-prompt a { color: #e94560; }
+.dark-mode .no-reviews { color: #94a3b8; }

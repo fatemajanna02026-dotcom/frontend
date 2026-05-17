@@ -1,0 +1,186 @@
+.login-container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 30px 25px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+.dark-mode .login-container {
+    background: var(--card-bg, #252545);
+    color: var(--text-color, #000000);
+}
+.dark-mode .login-container input {
+    color: #ffffff;
+    background-color: var(--input-bg, #1a1a2e);
+
+}
+/* ট্যাব স্টাইল */
+.auth-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    background: #f2f3f7;
+    padding: 5px;
+    border-radius: 50px;
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 12px;
+    background: transparent;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    color: #666;
+    transition: all 0.3s;
+}
+
+.auth-tab.active {
+    background: var(--primary-color, #e94560);
+    color: white;
+    box-shadow: 0 4px 10px rgba(233, 69, 96, 0.3);
+}
+
+/* ফর্ম এলিমেন্ট */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.auth-input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid #eef2f7;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: all 0.3s;
+    background: #fafbfc;
+}
+
+.auth-input:focus {
+    outline: none;
+    border-color: var(--primary-color, #e94560);
+    background: white;
+    box-shadow: 0 0 0 4px rgba(233, 69, 96, 0.1);
+}
+
+.auth-btn {
+    padding: 14px;
+    background: var(--primary-color, #e94560);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s;
+    margin-top: 10px;
+}
+
+.auth-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(233, 69, 96, 0.3);
+}
+
+.auth-btn:active {
+    transform: translateY(0);
+}
+
+/* লিংক */
+.auth-link {
+    text-align: center;
+    color: var(--primary-color, #e94560);
+    cursor: pointer;
+    font-size: 14px;
+    margin: 5px 0 0;
+    font-weight: 500;
+}
+
+.auth-link:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+}
+
+.forgot-link {
+    color: #f39c12;
+}
+
+/* ফোন অথ */
+.phone-auth {
+    margin-top: 10px;
+}
+
+.recaptcha-container {
+    margin-bottom: 20px;
+}
+
+/* ডিভাইডার */
+.divider {
+    position: relative;
+    text-align: center;
+    margin: 25px 0 15px;
+}
+
+.divider::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #ddd, transparent);
+}
+
+.divider span {
+    background: white;
+    padding: 0 15px;
+    color: #888;
+    font-size: 13px;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+}
+
+/* গুগল বাটন */
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 14px;
+    background: white;
+    border: 2px solid #eef2f7;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    color: #444;
+    transition: all 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.google-btn:hover {
+    background: #f8f9fa;
+    border-color: #d0d9e8;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+}
+
+.google-btn img {
+    width: 22px;
+    height: 22px;
+}
+
+/* রেসপনসিভ */
+@media (max-width: 480px) {
+    .login-container {
+        margin: 20px 15px;
+        padding: 20px 15px;
+    }
+}
